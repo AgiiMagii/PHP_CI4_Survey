@@ -1,0 +1,26 @@
+<?php
+
+use CodeIgniter\Router\RouteCollection;
+use App\Controllers\Pages;
+use App\Controllers\Tests;
+
+/**
+ * @var RouteCollection $routes
+ */
+$routes->get('/', 'Pages::index');
+
+/*
+|--------------------------------------------------------------------------
+| API
+|--------------------------------------------------------------------------
+*/
+$routes->group('api/tests', function($routes) {
+    $routes->get('', [Tests::class, 'index']);
+    $routes->get('(:num)', [Tests::class, 'show/$1']);
+    $routes->post('', [Tests::class, 'create']);
+    $routes->put('(:num)', [Tests::class, 'update/$1']);
+    $routes->delete('(:num)', [Tests::class, 'delete/$1']);
+});
+$routes->get('tests', 'Pages::view/tests');
+$routes->get('(:segment)', [Pages::class, 'view']);
+
